@@ -51,7 +51,7 @@ jobs:
           ARTIFACTS_DIR: ${{ github.workspace }}/artifacts
           FEED_DIR: ${{ github.workspace }}/feeds
           PACKAGES: mihomo luci-app-mihomo
-          NO_SHFMT_CHECK: 1
+          NO_REFRESH_CHECK: true
         
       - name: Delivering Package
         uses: actions/upload-artifact@v3

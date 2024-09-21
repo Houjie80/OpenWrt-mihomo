@@ -41,7 +41,7 @@ jobs:
         run: |
               echo ""
               mkdir feeds artifacts
-              cp -rf ./luci-app-mihomo ./feeds
+              # cp -rf ./luci-app-mihomo ./feeds
               cp -rf ./mihomo ./feeds
         
       - name: Building luci-app-mihomo
@@ -50,7 +50,7 @@ jobs:
           ARCH: ${{ matrix.arch }}-${{ matrix.release }}
           ARTIFACTS_DIR: ${{ github.workspace }}/artifacts
           FEED_DIR: ${{ github.workspace }}/feeds
-          PACKAGES: mihomo luci-app-mihomo
+          PACKAGES: mihomo
           NO_SHFMT_CHECK: 1
         
       - name: Delivering Package

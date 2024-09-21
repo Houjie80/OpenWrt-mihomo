@@ -54,8 +54,11 @@ jobs:
         run: |
           tar -c -z -f mihomo_${{ matrix.arch }}.tar.gz -C bin/packages/${{ matrix.arch }}/mihomo .
 
-      - name: Release
-        uses: softprops/action-gh-release@v2
+      - name: Upload release asset
+        uses: svenstaro/upload-release-action@v2
         with:
-          files: |
-            mihomo_${{ matrix.arch }}.tar.gz
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: mihomo_${{ matrix.arch }}.tar.gz
+          overwrite: true
+          tag: luci-app-mihomo_${{ inputs.version }}
+          file_glob: true

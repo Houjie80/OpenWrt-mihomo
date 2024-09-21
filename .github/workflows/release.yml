@@ -43,5 +43,9 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: mihomo_${{ matrix.arch }}.tar.gz
           overwrite: true
-          tag: luci-app-mihomo_${{ inputs.version }}
+          tag: mihomo_${{ matrix.arch }}
           file_glob: true
+          body: |
+            # LUCI APP NEKO ${{ inputs.version }}
+            Simple Clash TUN based Proxy
+            ### Information

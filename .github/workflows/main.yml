@@ -41,7 +41,7 @@ jobs:
         run: |
               echo ""
               mkdir feeds artifacts
-              # cp -rf ./luci-app-mihomo ./feeds
+              cp -rf ./luci-app-mihomo ./feeds
               cp -rf ./mihomo ./feeds
         
       - name: Building luci-app-mihomo
@@ -50,13 +50,13 @@ jobs:
           ARCH: ${{ matrix.arch }}-${{ matrix.release }}
           ARTIFACTS_DIR: ${{ github.workspace }}/artifacts
           FEED_DIR: ${{ github.workspace }}/feeds
-          PACKAGES: mihomo
+          PACKAGES: mihomo luci-app-mihomo
           NO_SHFMT_CHECK: 1
         
       - name: Delivering Package
         uses: actions/upload-artifact@v3
         with:
-          name: neko-${{ matrix.release }}_${{ matrix.arch }}
+          name: mihomo-${{ matrix.release }}_${{ matrix.arch }}
           path: ${{ github.workspace }}/artifacts/bin/packages/${{ matrix.arch }}/action/luci-app*
 
   push_packages:
@@ -73,7 +73,7 @@ jobs:
         shell: bash
         run: |
           mkdir ./release
-          cp -rf ./neko-23.05.4_x86_64/luci-app* ./release/luci-app-mihomo_${{ inputs.version }}_all.ipk
+          cp -rf ./mihomo-23.05.4_x86_64/luci-app* ./release/luci-app-mihomo_${{ inputs.version }}_all.ipk
         
       - name: Upload release asset
         uses: svenstaro/upload-release-action@v2

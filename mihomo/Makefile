@@ -1,35 +1,29 @@
-include $(TOPDIR)/rules.mk
-
 PKG_NAME:=mihomo
 PKG_RELEASE:=2
+PKG_VERSION:=1.18.8
 
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/MetaCubeX/mihomo.git
-PKG_SOURCE_DATE:=2024-09-19
-PKG_SOURCE_VERSION:=a08aa10630813485d7899e65ff59c3fae56f8364
-PKG_MIRROR_HASH:=415cafd17a7c3362da952b9c5ecaa8f38d01e79b9609fdbc2384be225ae97451
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://codeload.github.com/MetaCubeX/mihomo/tar.gz/v$(PKG_VERSION)?
+PKG_HASH:=2d4d4bac7832cea737557f7ea4fd09d12dee777ec37b6da26a1fa42c1dfdf962
 
 PKG_LICENSE:=MIT
-PKG_MAINTAINER:=Joseph Mory <morytyann@gmail.com>
+PKG_MAINTAINER:=nosignals
 
 PKG_BUILD_DEPENDS:=golang/host
 PKG_BUILD_PARALLEL:=1
 PKG_BUILD_FLAGS:=no-mips16
 
-PKG_BUILD_VERSION:=alpha-a08aa10
-PKG_BUILD_TIME:=$(shell date -u -Iseconds)
-
 GO_PKG:=github.com/metacubex/mihomo
-GO_PKG_LDFLAGS_X:=$(GO_PKG)/constant.Version=$(PKG_BUILD_VERSION) $(GO_PKG)/constant.BuildTime=$(PKG_BUILD_TIME)
+GO_PKG_LDFLAGS_X:=$(GO_PKG)/constant.Version=v$(PKG_VERSION)
 GO_PKG_TAGS:=with_gvisor
 
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 
-define Package/mihomo
+define Package/$(PKG_NAME)
   SECTION:=net
   CATEGORY:=Network
-  TITLE:=A rule based proxy in Go.
+  TITLE:=Universal proxy platform.
   URL:=https://wiki.metacubex.one
   DEPENDS:=$(GO_ARCH_DEPENDS) +ca-bundle +curl +yq firewall4 +kmod-nft-tproxy +ip-full +kmod-tun
   USERID:=mihomo=7890:mihomo=7890
